@@ -58,7 +58,7 @@ indexing_service = IndexingService()
 coordinator_node_url = os.getenv('COORDINATOR_NODE_URL', '')
 coordinator_node_protocol = os.getenv('COORDINATOR_NODE_PROTOCOL', 'http')
 coordinator_node_port = int(os.getenv('COORDINATOR_NODE_PORT', "6006"))
-register_with_coordinator = int(os.getenv('REGISTER_WITH_COORDINATOR', 1))
+register_with_coordinator = 0
 
 @app.route('/', methods=['GET'])
 def hello():
