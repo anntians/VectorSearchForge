@@ -11,14 +11,19 @@ import math
 import logging
 
 # make this region dynamic later
-s3_client = boto3.client(
-    's3',
-    endpoint_url="http://host.docker.internal:4566",  # LocalStack S3 endpoint
-    aws_access_key_id='test',  # Dummy AWS credentials
-    aws_secret_access_key='test',  # Dummy AWS credentials
-    aws_session_token='test',
-    region_name='us-east-1'  # You can use the region you want
-)
+s3_client = boto3.client('s3', region_name='us-east-1')
+
+remoteBuild = os.getenv("REMOTE_BUILD")
+if remoteBuild and remoteBuild == 's3.localStack':
+    s3_client = boto3.client(
+        's3',
+        endpoint_url="http://host.docker.internal:4566",  # LocalStack S3 endpoint
+        aws_access_key_id='test',  # Dummy AWS credentials
+        aws_secret_access_key='test',  # Dummy AWS credentials
+        aws_session_token='test',
+        region_name='us-east-1'  # You can use the region you want
+    )
+
 logger = logging.getLogger(__name__)
 
 def check_s3_object_exists(bucket_name, object_key):
